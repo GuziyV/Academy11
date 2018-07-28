@@ -1,12 +1,43 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Academy11.Services
 {
-    class FlightService
+    public class FlightService
     {
+        public ObservableCollection<Flight> Flights;
+
+        public FlightService()
+        {
+            SelectedItem = new Flight();
+            if(_httpClient == null)
+            {
+                HttpClientHandler hch = new HttpClientHandler();
+                hch.Proxy = null;
+                hch.UseProxy = false;
+                _httpClient = new HttpClient(hch);
+            }
+            if (Flights == null)
+            {
+                Flights = new ObservableCollection<Flight>(GetAll().Result);
+            }
+        }
+        private HttpClient _httpClient;
+
+        private string _uri = App.apiUrl + "flights";
+
+        public Flight SelectedItem { get; set; } 
+
+
+        public async Task<IEnumerable<Flight>> GetAll()
+        {     
+            string result = await _httpClient.GetStringAsync(_uri).ConfigureAwait(false);
+            return await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Flight>>(result));       
+        }
+
     }
 }

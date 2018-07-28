@@ -1,28 +1,17 @@
-﻿using Data_Access_Layer.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace Data_Access_Layer.Models
+namespace Academy11
 {
-    public class Departure : IEntity
+    public class Departure
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
-        public virtual Flight Flight { get; set; }
+        public  Flight Flight { get; set; }
+        
+        public  DateTime TimeOfDeparture { get; set; }
 
-        [Required]
-        public virtual DateTime TimeOfDeparture { get; set; }
+        public  Crew Crew { get; set; }
 
-        [Required]
-        public virtual Crew Crew { get; set; }
-
-        [Required]
-        public virtual Plane Plane { get; set; }
+        public  Plane Plane { get; set; }
     }
 }
