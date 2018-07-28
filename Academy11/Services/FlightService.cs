@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -37,6 +38,13 @@ namespace Academy11.Services
         {     
             string result = await _httpClient.GetStringAsync(_uri).ConfigureAwait(false);
             return await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Flight>>(result));       
+        }
+
+        public void RemoveElem(Flight flight)
+        {
+             Flights.Remove(Flights.Where(i => i.Number == flight.Number).Single());
+            //TODO Delete from database
+                
         }
 
     }

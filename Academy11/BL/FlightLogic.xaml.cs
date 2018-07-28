@@ -19,20 +19,40 @@ namespace Academy11
 
         public FlightService FlightService { get; set; }
 
-        private void ShowFlights(object sender, RoutedEventArgs e)
+        private void ShowFlights_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(FlightLogic));
         }
 
-        public void ShowSelectedItem(object sender, RoutedEventArgs e)
+        public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            FlightService.SelectedItem = ((Flight)Flights.SelectedItem);
+            if(FlightService.SelectedItem == null)
+            {
+                Detail.Visibility = Visibility.Collapsed;
+                return;
+            }
+            Number.Text = FlightService.SelectedItem.Number.ToString();
+            ArrivalTime.Text = FlightService.SelectedItem.ArrivalTime.ToString();
+            DepartureFrom.Text = FlightService.SelectedItem.DepartureFrom.ToString();
+            Destination.Text = FlightService.SelectedItem.Destination.ToString();
+            TimeOfDeparture.Text = FlightService.SelectedItem.TimeOfDeparture.ToString();
+            Detail.Visibility = Visibility.Visible;
+        }
+
+        public void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            FlightService.RemoveElem(FlightService.SelectedItem);
+        }
+
+        public void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
-            Number.Text = ((Flight)Flights.SelectedItem).Number.ToString();
-            ArrivalTime.Text = ((Flight)Flights.SelectedItem).ArrivalTime.ToString();
-            DepartureFrom.Text = ((Flight)Flights.SelectedItem).DepartureFrom.ToString();
-            Destination.Text = ((Flight)Flights.SelectedItem).Destination.ToString();
-            TimeOfDeparture.Text = ((Flight)Flights.SelectedItem).TimeOfDeparture.ToString();
-            Detail.Visibility = Visibility.Visible;
+        }
+
+        public void ShowForm_Click(object sender, RoutedEventArgs e)
+        {
+            Form.Visibility = Visibility.Visible;
         }
 
     }
