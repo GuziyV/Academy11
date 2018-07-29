@@ -33,7 +33,6 @@ namespace Academy11
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Form.Visibility = Visibility.Collapsed;
             bool isNumber = int.TryParse(formExperience.Text, out int n);
             if (isNumber)
             {
@@ -86,6 +85,7 @@ namespace Academy11
             FormTitle.Text = "New Pilot";
             formSurname.Text = "";
             formName.Text = "";
+            formExperience.Text = "";
         }
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)

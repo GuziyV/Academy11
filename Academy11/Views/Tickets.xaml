@@ -7,98 +7,99 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <ScrollViewer>
+        <Grid Background="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="Gray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="45"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="Gray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition/>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
 
+                <Button Content="Flights" Click="ShowFlights" Grid.Column="0" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="Pilots" Click="ShowPilots" Grid.Column="1" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="Stewardesses" Click="ShowStewardesses" Grid.Column="2" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="Tickets" Click="ShowTickets" Grid.Column="3" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="PlaneTypes" Click="ShowPlaneTypes" Grid.Column="4" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="Planes" Click="ShowPlanes" Grid.Column="5" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="Crews" Click="ShowCrews" Grid.Column="6" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Button Content="Departures" Click="ShowDepartures" Background="Gray" Grid.Column="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
 
-            <Button Content="Flights" Click="ShowFlights" Grid.Column="0" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Pilots" Click="ShowPilots" Grid.Column="1" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Stewardesses" Click="ShowStewardesses" Grid.Column="2" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Tickets" Click="ShowTickets" Grid.Column="3" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="PlaneTypes" Click="ShowPlaneTypes" Grid.Column="4" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Planes" Click="ShowPlanes" Grid.Column="5" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Crews" Click="ShowCrews" Grid.Column="6" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Departures" Click="ShowDepartures" Background="Gray" Grid.Column="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </Grid>
-
-        <Grid Grid.Row="1" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <StackPanel>
-                    <Button Content="Create new" Click="ShowForm_Click" Margin="10,10,10,10"/>
-                </StackPanel>
-                <ListView SelectionChanged="ShowSelectedItem_Click" Margin="0,50,0,0" 
+            <Grid Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <StackPanel>
+                        <Button Content="Create new" Click="ShowForm_Click" Margin="10,10,10,10"/>
+                    </StackPanel>
+                    <ListView SelectionChanged="ShowSelectedItem_Click" Margin="0,50,0,0" 
                           SelectedItem="{Binding TicketService.SelectedItem, Mode=TwoWay}" 
                           x:Name="Tickets" 
                           ItemsSource="{x:Bind TicketService.Items, Mode=TwoWay}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="local:Ticket" >
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:Ticket" >
 
-                            <StackPanel Orientation="Vertical"
+                                <StackPanel Orientation="Vertical"
                                     Grid.Column="1"
                                     Grid.Row="1"
                                     Margin="0, 20, 0, 0"
                                     >
-                                <TextBlock  Text="Id:"/>
-                                <TextBlock FontSize ="25" Text="{x:Bind Id}"/>
-                                <TextBlock Text="Flight number:"/>
-                                <TextBlock FontSize ="25" Text="{x:Bind FlightNumber}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
+                                    <TextBlock  Text="Id:"/>
+                                    <TextBlock FontSize ="25" Text="{x:Bind Id}"/>
+                                    <TextBlock Text="Flight number:"/>
+                                    <TextBlock FontSize ="25" Text="{x:Bind FlightNumber}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
 
-            <StackPanel Grid.Column="1" Visibility="Collapsed" x:Name="Form"  HorizontalAlignment="Center">
-                <TextBlock Text="New Ticket" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
-                <TextBox InputScope="Number"  x:Name="formFlightNumber" Header= "FlightNumber" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
-                <TextBox InputScope="Number"  x:Name="formPrice" Header="Price" Margin="0,24,0,0"  HorizontalAlignment="Left" />
-                <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Save" Margin="0,24" Click="SaveButton_Click"/>
+                <StackPanel Grid.Column="1" Visibility="Collapsed" x:Name="Form"  HorizontalAlignment="Center">
+                    <TextBlock Text="New Ticket" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
+                    <TextBox InputScope="Number"  x:Name="formFlightNumber" Header= "FlightNumber" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
+                    <TextBox InputScope="Number"  x:Name="formPrice" Header="Price" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                    <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Save" Margin="0,24" Click="SaveButton_Click"/>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
 
-            <Grid Grid.Column="3" Visibility="Collapsed" x:Name="Detail">
+                <Grid Grid.Column="3" Visibility="Collapsed" x:Name="Detail">
 
-                <StackPanel Orientation="Vertical"
+                    <StackPanel Orientation="Vertical"
                                     Margin="0, 20, 0, 0"
                                     >
-                    <TextBlock Text="Id:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Tickets, Path=SelectedItem.Id, Mode=TwoWay}"/>
-                    <TextBlock Text="Flight Number:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Tickets, Path=SelectedItem.FlightNumber, Mode=TwoWay}"/>
-                    <TextBlock Text="Price:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Tickets, Path=SelectedItem.Price, Mode=TwoWay}" />
-                    <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
-                    <Button Content="Update" Click="ShowUpdateForm_Click"/>
+                        <TextBlock Text="Id:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Tickets, Path=SelectedItem.Id, Mode=TwoWay}"/>
+                        <TextBlock Text="Flight Number:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Tickets, Path=SelectedItem.FlightNumber, Mode=TwoWay}"/>
+                        <TextBlock Text="Price:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Tickets, Path=SelectedItem.Price, Mode=TwoWay}" />
+                        <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
+                        <Button Content="Update" Click="ShowUpdateForm_Click"/>
 
-                </StackPanel>
+                    </StackPanel>
+
+                </Grid>
+
+
 
             </Grid>
 
-
-
         </Grid>
-
-    </Grid>
+    </ScrollViewer>
 </Page>

@@ -32,7 +32,6 @@ namespace Academy11
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Form.Visibility = Visibility.Collapsed;
             bool isNumber = int.TryParse(formCrewId.Text, out int crewId);
             if (isNumber && formDateOfBirth.Date.HasValue)
             {

@@ -78,9 +78,9 @@ namespace Academy11
                         WrongInput.Visibility = Visibility.Collapsed;
                         return;
                     }
-                }
-                WrongInput.Visibility = Visibility.Visible;
+                }          
             }
+            WrongInput.Visibility = Visibility.Visible;
         }
 
         public void ShowUpdateForm_Click(object sender, RoutedEventArgs e)

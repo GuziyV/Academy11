@@ -32,7 +32,6 @@ namespace Academy11
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Form.Visibility = Visibility.Collapsed;
             bool isNumber = int.TryParse(formPrice.Text, out int price);
             bool isNumber2 = int.TryParse(formFlightNumber.Text, out int flightNumber);
             if (isNumber && isNumber2)
