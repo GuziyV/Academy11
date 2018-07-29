@@ -96,6 +96,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="BL\FlightLogic.xaml.cs" />
+    <Compile Include="BL\PilotLogic.xaml.cs" />
+    <Compile Include="BL\PlaneLogic.xaml.cs" />
+    <Compile Include="BL\PlaneTypeLogic.xaml.cs" />
+    <Compile Include="BL\StewardessLogic.xaml.cs" />
+    <Compile Include="BL\TicketLogic.xaml.cs" />
     <Compile Include="Models\Crew.cs" />
     <Compile Include="Models\Departure.cs" />
     <Compile Include="Models\Flight.cs" />
@@ -106,6 +111,12 @@
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FlightService.cs" />
+    <Compile Include="Services\ItemService.cs" />
+    <Compile Include="Services\PilotService.cs" />
+    <Compile Include="Services\PlaneService.cs" />
+    <Compile Include="Services\PlaneTypeService.cs" />
+    <Compile Include="Services\StewardessService.cs" />
+    <Compile Include="Services\TicketService.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -146,6 +157,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pilots.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Planes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlaneTypes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Stewardesses.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tickets.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

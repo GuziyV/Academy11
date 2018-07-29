@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Academy11.FlightLogic"
+    x:Class="Academy11.TicketLogic"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Academy11"
@@ -46,10 +46,7 @@
                 <StackPanel>
                     <Button Content="Create new" Click="ShowForm_Click" Margin="10,10,10,10"/>
                 </StackPanel>
-                <ListView SelectionChanged="ShowSelectedItem_Click" Margin="0,50,0,0" 
-                          SelectedItem="{Binding FlightsService.SelectedItem, Mode=TwoWay}"
-                          x:Name="Flights"
-                          ItemsSource="{x:Bind FlightService.Items, Mode=TwoWay}">
+                <ListView SelectionChanged="ShowSelectedItem_Click" Margin="0,50,0,0" x:Name="Flights" ItemsSource="{x:Bind FlightService.Items, Mode=TwoWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local:Flight" >
 
@@ -83,48 +80,24 @@
             </StackPanel>
 
             <Grid Grid.Column="3" Visibility="Collapsed" x:Name="Detail">
-                <ScrollViewer>
-                    <StackPanel Orientation="Vertical"
+
+                <StackPanel Orientation="Vertical"
                                     Margin="0, 20, 0, 0"
                                     >
                     <TextBlock Text="Number:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.Number, Mode=TwoWay}"/>
+                    <TextBlock FontSize ="25" Name="Number"/>
                     <TextBlock Text="Departure from:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.DepartureFrom, Mode=TwoWay}" />
-                    <TextBlock Text="Destination:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.Destringtion, Mode=TwoWay}"/>
+                    <TextBlock FontSize ="25" Name="DepartureFrom" />
+                    <TextBlock Text="Destrination:"/>
+                    <TextBlock FontSize ="25" Name="Destination"/>
                     <TextBlock Text="Time of departure:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.TimeOfDeparture, Mode=TwoWay}"/>
+                    <TextBlock FontSize ="25" Name="TimeOfDeparture"/>
                     <TextBlock Text="Arrival time:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.ArrivalTime, Mode=TwoWay}"/>
-
+                    <TextBlock FontSize ="25" Name="ArrivalTime"/>
                     <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
                     <Button Content="Update" Click="ShowUpdateForm_Click"/>
-                    
-                    <ListView Margin="0,15,0,0" 
-                          SelectedItem="{Binding FlightsService.SelectedItem, Mode=TwoWay}"
-                          x:Name="Tickets"
-                          ItemsSource="{Binding ElementName=Flights, Path=SelectedItem.Tickets, Mode=TwoWay}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="local:Ticket" >
-                                <StackPanel Orientation="Vertical"
-                                    Grid.Column="1"
-                                    Grid.Row="1"
-                                    Margin="0, 0, 0, 0"
-                                    >
-                                    <TextBlock  Text="Tickets:" FontSize ="28"/>
-                                    <TextBlock  Text="Price:"/>
-                                    <TextBlock FontSize ="25" Text="{x:Bind Price}"/>
-                                    <TextBlock Text="Flight Number:"/>
-                                    <TextBlock FontSize ="25" Text="{x:Bind FlightNumber}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    
 
                 </StackPanel>
-                </ScrollViewer>
 
             </Grid>
 

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Academy11
 {
 
-    public sealed partial class FlightLogic : Page
+    public sealed partial class StewardessLogic : Page
     {
-        public FlightLogic()
+        public StewardessLogic()
         {
             FlightService = new FlightService();
             this.InitializeComponent();
@@ -63,7 +63,7 @@ namespace Academy11
                     }
                 }
             }
-                WrongInput.Visibility = Visibility.Visible;
+            WrongInput.Visibility = Visibility.Visible;
         }
 
         public void ShowUpdateForm_Click(object sender, RoutedEventArgs e)
@@ -97,6 +97,11 @@ namespace Academy11
                 Detail.Visibility = Visibility.Collapsed;
                 return;
             }
+            Number.Text = FlightService.SelectedItem.Number.ToString();
+            ArrivalTime.Text = FlightService.SelectedItem.ArrivalTime.ToString();
+            DepartureFrom.Text = FlightService.SelectedItem.DepartureFrom.ToString();
+            Destination.Text = FlightService.SelectedItem.Destination.ToString();
+            TimeOfDeparture.Text = FlightService.SelectedItem.TimeOfDeparture.ToString();
             Detail.Visibility = Visibility.Visible;
         }
 
