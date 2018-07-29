@@ -88,7 +88,7 @@
                     <TextBlock Text="Name:"/>
                     <TextBlock FontSize ="25" Text="{Binding ElementName=Pilots, Path=SelectedItem.Name, Mode=TwoWay}"/>
                     <TextBlock Text="Experience:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.Experience, Mode=TwoWay}"/>
+                    <TextBlock FontSize ="25" Text="{Binding ElementName=Pilots, Path=SelectedItem.Experience, Mode=TwoWay}"/>
                     <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
                     <Button Content="Update" Click="ShowUpdateForm_Click"/>
 

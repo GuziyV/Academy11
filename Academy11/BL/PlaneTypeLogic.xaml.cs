@@ -89,7 +89,8 @@ namespace Academy11
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)
         {
-            Form.Visibility = Visibility.Collapsed;
+            if (FormTitle.Text == "Edit Ticket")
+                Form.Visibility = Visibility.Collapsed;
             PlaneTypeService.SelectedItem = ((PlaneType)PlaneTypes.SelectedItem);
             if (PlaneTypeService.SelectedItem == null)
             {

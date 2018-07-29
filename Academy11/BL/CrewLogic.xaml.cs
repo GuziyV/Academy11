@@ -4,58 +4,63 @@ using Windows.UI.Xaml.Controls;
 using System.Linq;
 using System.ServiceModel.Channels;
 using System.Threading.Tasks;
-using System;
+using System.Collections.Generic;
 
 namespace Academy11
 {
 
-    public sealed partial class PilotLogic : Page
+    public sealed partial class CrewLogic : Page
     {
-        public PilotLogic()
+        public CrewLogic()
         {
-            PilotService = new PilotService();
+            CrewService = new CrewService();
             this.InitializeComponent();
         }
 
-
-        public PilotService PilotService { get; set; }
+        public CrewService CrewService { get; set; }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await PilotService.UpdateList();
+            await CrewService.UpdateList();
         }
-
         public async void Delete_Click(object sender, RoutedEventArgs e)
         {
             Form.Visibility = Visibility.Collapsed;
-            await PilotService.RemoveElem(PilotService.SelectedItem);
+            await CrewService.RemoveElem(CrewService.SelectedItem);
         }
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isNumber = int.TryParse(formExperience.Text, out int n);
-            if (isNumber)
+            bool isNumber = int.TryParse(formCrewId.Text, out int crewId);
+            bool isNumber2 = int.TryParse(formExperience.Text, out int experience);
+            if (isNumber && isNumber2 && formDateOfBirth.Date.HasValue)
             {
-                Pilot f = new Pilot()
+                Stewardess s = new Stewardess()
                 {
-                    Name = formName.Text,
-                    Surname = formSurname.Text,
-                    Experience = Int32.Parse(formExperience.Text)
+                    Name = formStewardessName.Text,
+                    Surname = formStewardessSurname.Text,
+                    CrewId = crewId,
+                    DateOfBirth = formDateOfBirth.Date.Value.Date
                 };
-                if (PilotService.Validate(f))
+                Pilot p = new Pilot()
                 {
-                    if (FormTitle.Text == "New Pilot")
+                    Name = formPilotName.Text,
+                    Surname = formPilotSurname.Text,
+                    Experience = experience
+                };
+                Crew f = new Crew()
+                {
+                    Pilot = p,
+                    Stewardesses = new List<Stewardess>()
                     {
-                        if (!await PilotService.Add(f))
-                        {
-                            WrongInput.Visibility = Visibility.Visible;
-                        }
-                        WrongInput.Visibility = Visibility.Collapsed;
-                        return;
+                        s
                     }
-                    if (FormTitle.Text == "Edit Pilot")
+                };
+                if (CrewService.Validate(f))
+                {
+                    if (FormTitle.Text == "New Crew")
                     {
-                        if (!await PilotService.Update(f))
+                        if (!await CrewService.Add(f))
                         {
                             WrongInput.Visibility = Visibility.Visible;
                         }
@@ -63,35 +68,29 @@ namespace Academy11
                         return;
                     }
                 }
+                WrongInput.Visibility = Visibility.Visible;
             }
-            WrongInput.Visibility = Visibility.Visible;
-        }
-
-        public void ShowUpdateForm_Click(object sender, RoutedEventArgs e)
-        {
-            WrongInput.Visibility = Visibility.Collapsed;
-            Form.Visibility = Visibility.Visible;
-            FormTitle.Text = "Edit Pilot";
-            formName.Text = PilotService.SelectedItem.Name;
-            formSurname.Text = PilotService.SelectedItem.Surname.ToString();
-            formExperience.Text = PilotService.SelectedItem.Experience.ToString();
         }
 
         public void ShowForm_Click(object sender, RoutedEventArgs e)
         {
             WrongInput.Visibility = Visibility.Collapsed;
             Form.Visibility = Visibility.Visible;
-            FormTitle.Text = "New Pilot";
-            formSurname.Text = "";
-            formName.Text = "";
+            FormTitle.Text = "New Crew";
+            formPilotSurname.Text = "";
+            formPilotName.Text = "";
+            formExperience.Text = "";
+            formDateOfBirth.Date = null;
+            formStewardessName.Text = "";
+            formStewardessSurname.Text = "";
         }
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)
         {
             if (FormTitle.Text == "Edit Ticket")
                 Form.Visibility = Visibility.Collapsed;
-            PilotService.SelectedItem = ((Pilot)Pilots.SelectedItem);
-            if (PilotService.SelectedItem == null)
+            CrewService.SelectedItem = ((Crew)Crews.SelectedItem);
+            if (CrewService.SelectedItem == null)
             {
                 Detail.Visibility = Visibility.Collapsed;
                 return;
@@ -103,9 +102,9 @@ namespace Academy11
         {
             Frame.Navigate(typeof(FlightLogic));
         }
-        private void ShowPilots(object sender, RoutedEventArgs e)
+        private void ShowPlaneTypes(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PilotLogic));
+            Frame.Navigate(typeof(PlaneTypeLogic));
         }
 
         private void ShowPlanes(object sender, RoutedEventArgs e)
@@ -113,9 +112,9 @@ namespace Academy11
             Frame.Navigate(typeof(PlaneLogic));
         }
 
-        private void ShowPlaneTypes(object sender, RoutedEventArgs e)
+        private void ShowPilots(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PlaneTypeLogic));
+            Frame.Navigate(typeof(PilotLogic));
         }
 
         private void ShowStewardesses(object sender, RoutedEventArgs e)

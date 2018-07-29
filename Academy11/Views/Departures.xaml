@@ -1,11 +1,11 @@
 ﻿<Page
-    x:Class="Academy11.PlaneLogic"
+    x:Class="Academy11.DepartureLogic"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Academy11"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded"
+    mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="White">
@@ -47,11 +47,11 @@
                     <Button Content="Create new" Click="ShowForm_Click" Margin="10,10,10,10"/>
                 </StackPanel>
                 <ListView SelectionChanged="ShowSelectedItem_Click"
-                          Margin="0,50,0,0" x:Name="Planes" 
-                          ItemsSource="{x:Bind PlaneService.Items, Mode=TwoWay}"
-                          SelectedItem="{Binding PlaneService.SelectedItem, Mode=TwoWay}">
+                          Margin="0,50,0,0" x:Name="Departures" 
+                          ItemsSource="{x:Bind DepartureService.Items, Mode=TwoWay}"
+                          SelectedItem="{Binding DepartureService.SelectedItem, Mode=TwoWay}">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="local:Plane" >
+                        <DataTemplate x:DataType="local:Departure" >
 
                             <StackPanel Orientation="Vertical"
                                     Grid.Column="1"
@@ -60,8 +60,8 @@
                                     >
                                 <TextBlock  Text="Number:"/>
                                 <TextBlock FontSize ="25" Text="{x:Bind Id}"/>
-                                <TextBlock Text="Release date:"/>
-                                <TextBlock FontSize ="25" Text="{x:Bind ReleaseDate}"/>
+                                <TextBlock  Text="Time Of Departure:"/>
+                                <TextBlock FontSize ="25" Text="{x:Bind TimeOfDeparture}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -69,12 +69,27 @@
             </Grid>
 
             <StackPanel Grid.Column="1" Visibility="Collapsed" x:Name="Form"  HorizontalAlignment="Center">
-                <TextBlock Text="New Plane" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBlock Text="New Departure" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
+                <CalendarDatePicker x:Name="formTimeOfDeparture2" Header="Time Of departure"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBlock Text="Flight: "  Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBox  x:Name="formDepartureFrom" Header= "Departure From" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
+                <TextBox x:Name="formDestination" Header="Destination" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <CalendarDatePicker  x:Name="formArrivalTime" Header="Arrival Time" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <CalendarDatePicker x:Name="formTimeOfDeparture" Header="Time of departure"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBlock Text="Crew: "  Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBox  x:Name="formPilotSurname" Header= "Pilot Surname" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
+                <TextBox x:Name="formPilotName" Header="Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBox InputScope="Number"  x:Name="formExperience" Header="Experience" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBox  x:Name="formStewardessSurname" Header= "Stuardess Surname" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
+                <TextBox x:Name="formStewardessName" Header="Stuardess Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBox InputScope="Number"  x:Name="formCrewId" Header="Crew Id" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <CalendarDatePicker x:Name="formDateOfBirth" Header="Date of birth"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBlock Text="Plane: "  Style="{StaticResource TitleTextBlockStyle}"/>
                 <CalendarDatePicker x:Name="formReleaseDate" Header="Release Date"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
                 <TextBox  x:Name="formModel" Header= "Model" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
                 <TextBox InputScope="Number" x:Name="formLoadCapacity" Header="Load capacity:" Margin="0,24,0,0"  HorizontalAlignment="Left" />
                 <TextBox InputScope="Number"  x:Name="formNumberOfSeats" Header="Number of seats" Margin="0,24,0,0"  HorizontalAlignment="Left" />
-                <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Save" Margin="0,24" Click="SaveButton_Click"/>
                 </StackPanel>
@@ -87,20 +102,33 @@
                                     Margin="0, 20, 0, 0"
                                     >
                         <TextBlock Text="Id:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Planes, Path=SelectedItem.Id, Mode=TwoWay}"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.Id, Mode=TwoWay}"/>
                         <TextBlock Text="Release Date:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Planes, Path=SelectedItem.ReleaseDate, Mode=TwoWay}" />
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.TimeOfDeparture, Mode=TwoWay}" />
 
                         <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
                         <Button Content="Update" Click="ShowUpdateForm_Click"/>
 
-                        <TextBlock Text="Plane Type:" Margin="0,20" FontSize="28"/>
-                        <TextBlock Text="Model:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Planes, Path=SelectedItem.PlaneType.Model, Mode=TwoWay}" />
-                        <TextBlock Text="Number of seats:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Planes, Path=SelectedItem.PlaneType.NumberOfSeats, Mode=TwoWay}" />
-                        <TextBlock Text="Load Capacity:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Planes, Path=SelectedItem.PlaneType.LoadCapacity, Mode=TwoWay}" />
+                        <TextBlock Text="Crew:" Margin="0,20" FontSize="28"/>
+                        <TextBlock Text="Id:" FontSize ="25"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.Crew.Id, Mode=TwoWay}" />
+                        <TextBlock Text="Pilot:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.Crew.Pilot.Surname, Mode=TwoWay}" />
+                       
+
+                        <TextBlock Text="Flight:" Margin="0,20" FontSize="28"/>
+                        <TextBlock Text="Number:" FontSize ="25"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.Flight.Number, Mode=TwoWay}" />
+                        <TextBlock Text="Departure from:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.Flight.DepartureFrom, Mode=TwoWay}" />
+                        <TextBlock Text="Destination:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.Flight.Destrination, Mode=TwoWay}" />
+
+                        <TextBlock Text="Plane:" Margin="0,20" FontSize="28"/>
+                        <TextBlock Text="id:" FontSize ="25"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.Plane.Id, Mode=TwoWay}" />
+                        <TextBlock Text="Release date:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Departures, Path=SelectedItem.Plane.ReleaseDate, Mode=TwoWay}" />
 
                     </StackPanel>
                 </ScrollViewer>

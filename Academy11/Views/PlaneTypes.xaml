@@ -88,7 +88,7 @@
                     <TextBlock Text="Number of seats:"/>
                     <TextBlock FontSize ="25" Text="{Binding ElementName=PlaneTypes, Path=SelectedItem.NumberOfSeats, Mode=TwoWay}"/>
                     <TextBlock Text="Load capacity:"/>
-                    <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.LoadCapacity, Mode=TwoWay}"/>
+                    <TextBlock FontSize ="25" Text="{Binding ElementName=PlaneTypes, Path=SelectedItem.LoadCapacity, Mode=TwoWay}"/>
                     <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
                     <Button Content="Update" Click="ShowUpdateForm_Click"/>
 

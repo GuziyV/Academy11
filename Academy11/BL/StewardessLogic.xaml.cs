@@ -12,49 +12,50 @@ namespace Academy11
     {
         public StewardessLogic()
         {
-            FlightService = new FlightService();
+            StewardessService = new StewardessService();
             this.InitializeComponent();
         }
 
 
-        public FlightService FlightService { get; set; }
+        public StewardessService StewardessService { get; set; }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await FlightService.UpdateList();
+            await StewardessService.UpdateList();
         }
 
         public async void Delete_Click(object sender, RoutedEventArgs e)
         {
             Form.Visibility = Visibility.Collapsed;
-            await FlightService.RemoveElem(FlightService.SelectedItem);
+            await StewardessService.RemoveElem(StewardessService.SelectedItem);
         }
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (formArrivalTime.Date.HasValue && formTimeOfDeparture.Date.HasValue)
+            bool isNumber = int.TryParse(formCrewId.Text, out int crewId);
+            if (isNumber && formDateOfBirth.Date.HasValue)
             {
-                Flight f = new Flight()
+                Stewardess f = new Stewardess()
                 {
-                    Destination = formDestination.Text,
-                    DepartureFrom = formDepartureFrom.Text,
-                    ArrivalTime = formArrivalTime.Date.Value.Date,
-                    TimeOfDeparture = formTimeOfDeparture.Date.Value.Date
+                    Name = formName.Text,
+                    Surname = formSurname.Text,
+                    CrewId = (crewId),
+                    DateOfBirth = formDateOfBirth.Date.Value.Date
                 };
-                if (FlightService.Validate(f))
+                if (StewardessService.Validate(f))
                 {
-                    if (FormTitle.Text == "New Flight")
+                    if (FormTitle.Text == "New Stewardess")
                     {
-                        if (!await FlightService.Add(f))
+                        if (!await StewardessService.Add(f))
                         {
                             WrongInput.Visibility = Visibility.Visible;
                         }
                         WrongInput.Visibility = Visibility.Collapsed;
                         return;
                     }
-                    if (FormTitle.Text == "Edit Flight")
+                    if (FormTitle.Text == "Edit Stewardess")
                     {
-                        if (!await FlightService.Update(f))
+                        if (!await StewardessService.Update(f))
                         {
                             WrongInput.Visibility = Visibility.Visible;
                         }
@@ -70,38 +71,34 @@ namespace Academy11
         {
             WrongInput.Visibility = Visibility.Collapsed;
             Form.Visibility = Visibility.Visible;
-            FormTitle.Text = "Edit Flight";
-            formArrivalTime.Date = FlightService.SelectedItem.ArrivalTime;
-            formDepartureFrom.Text = FlightService.SelectedItem.DepartureFrom.ToString();
-            formDestination.Text = FlightService.SelectedItem.Destination.ToString();
-            formTimeOfDeparture.Date = FlightService.SelectedItem.TimeOfDeparture;
+            FormTitle.Text = "Edit Stewardess";
+            formName.Text = StewardessService.SelectedItem.Name;
+            formSurname.Text = StewardessService.SelectedItem.Surname.ToString();
+            formCrewId.Text = StewardessService.SelectedItem.CrewId.ToString();
+            formDateOfBirth.Date = StewardessService.SelectedItem.DateOfBirth;
         }
 
         public void ShowForm_Click(object sender, RoutedEventArgs e)
         {
             WrongInput.Visibility = Visibility.Collapsed;
             Form.Visibility = Visibility.Visible;
-            FormTitle.Text = "New Flight";
-            formArrivalTime.Date = null;
-            formDepartureFrom.Text = "";
-            formDestination.Text = "";
-            formTimeOfDeparture.Date = null;
+            FormTitle.Text = "New Stewardess";
+            formSurname.Text = "";
+            formName.Text = "";
+            formDateOfBirth.Date = null;
+            formCrewId.Text = "";
         }
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)
         {
-            Form.Visibility = Visibility.Collapsed;
-            FlightService.SelectedItem = ((Flight)Flights.SelectedItem);
-            if (FlightService.SelectedItem == null)
+            if (FormTitle.Text == "Edit Ticket")
+                Form.Visibility = Visibility.Collapsed;
+            StewardessService.SelectedItem = ((Stewardess)Stewardesss.SelectedItem);
+            if (StewardessService.SelectedItem == null)
             {
                 Detail.Visibility = Visibility.Collapsed;
                 return;
             }
-            Number.Text = FlightService.SelectedItem.Number.ToString();
-            ArrivalTime.Text = FlightService.SelectedItem.ArrivalTime.ToString();
-            DepartureFrom.Text = FlightService.SelectedItem.DepartureFrom.ToString();
-            Destination.Text = FlightService.SelectedItem.Destination.ToString();
-            TimeOfDeparture.Text = FlightService.SelectedItem.TimeOfDeparture.ToString();
             Detail.Visibility = Visibility.Visible;
         }
 

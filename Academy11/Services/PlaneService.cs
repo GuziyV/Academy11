@@ -13,9 +13,11 @@ namespace Academy11.Services
             _uri += "planes";
         }
 
+        private PlaneTypeService PlaneTypeService { get; set; }
+
         public override bool Validate(Plane f)
         {
-            if (f.PlaneType == null )
+            if (f.PlaneType == null || !PlaneTypeService.Validate(f.PlaneType) )
             {
                 return false;
             }

@@ -95,6 +95,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BL\CrewLogic.xaml.cs" />
+    <Compile Include="BL\DepartureLogic.xaml.cs" />
     <Compile Include="BL\FlightLogic.xaml.cs" />
     <Compile Include="BL\PilotLogic.xaml.cs" />
     <Compile Include="BL\PlaneLogic.xaml.cs" />
@@ -110,6 +112,8 @@
     <Compile Include="Models\Stewardess.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CrewService.cs" />
+    <Compile Include="Services\DepartureService.cs" />
     <Compile Include="Services\FlightService.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Services\PilotService.cs" />
@@ -152,6 +156,14 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Crews.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Departures.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Flights.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

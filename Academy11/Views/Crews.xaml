@@ -1,11 +1,11 @@
 ﻿<Page
-    x:Class="Academy11.FlightLogic"
+    x:Class="Academy11.CrewLogic"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Academy11"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded"
+    mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="White">
@@ -47,23 +47,19 @@
                     <Button Content="Create new" Click="ShowForm_Click" Margin="10,10,10,10"/>
                 </StackPanel>
                 <ListView SelectionChanged="ShowSelectedItem_Click" Margin="0,50,0,0" 
-                          SelectedItem="{Binding FlightsService.SelectedItem, Mode=TwoWay}"
-                          x:Name="Flights"
-                          ItemsSource="{x:Bind FlightService.Items, Mode=TwoWay}">
+                          SelectedItem="{Binding CrewService.SelectedItem, Mode=TwoWay}"
+                          x:Name="Crews"
+                          ItemsSource="{x:Bind CrewService.Items, Mode=TwoWay}">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="local:Flight" >
+                        <DataTemplate x:DataType="local:Crew" >
 
                             <StackPanel Orientation="Vertical"
                                     Grid.Column="1"
                                     Grid.Row="1"
                                     Margin="0, 20, 0, 0"
                                     >
-                                <TextBlock  Text="Number:"/>
-                                <TextBlock FontSize ="25" Text="{x:Bind Number}"/>
-                                <TextBlock Text="Departure from:"/>
-                                <TextBlock FontSize ="25" Text="{x:Bind DepartureFrom}"/>
-                                <TextBlock Text="Destrination:"/>
-                                <TextBlock FontSize ="25" Text="{x:Bind Destination}"/>
+                                <TextBlock  Text="Id:"/>
+                                <TextBlock FontSize ="25" Text="{x:Bind Id}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -71,11 +67,14 @@
             </Grid>
 
             <StackPanel Grid.Column="1" Visibility="Collapsed" x:Name="Form"  HorizontalAlignment="Center">
-                <TextBlock Text="New Flight" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
-                <TextBox  x:Name="formDepartureFrom" Header= "Departure From" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
-                <TextBox x:Name="formDestination" Header="Destination" Margin="0,24,0,0"  HorizontalAlignment="Left" />
-                <CalendarDatePicker  x:Name="formArrivalTime" Header="Arrival Time" Margin="0,24,0,0"  HorizontalAlignment="Left" />
-                <CalendarDatePicker x:Name="formTimeOfDeparture" Header="Time of departure"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBlock Text="New Crew" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBox  x:Name="formPilotSurname" Header= "Pilot Surname" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
+                <TextBox x:Name="formPilotName" Header="Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBox InputScope="Number"  x:Name="formExperience" Header="Experience" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBox  x:Name="formStewardessSurname" Header= "Stuardess Surname" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
+                <TextBox x:Name="formStewardessName" Header="Stuardess Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBox InputScope="Number"  x:Name="formCrewId" Header="Crew Id" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <CalendarDatePicker x:Name="formDateOfBirth" Header="Date of birth"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
                 <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Save" Margin="0,24" Click="SaveButton_Click"/>
@@ -87,36 +86,42 @@
                     <StackPanel Orientation="Vertical"
                                     Margin="0, 20, 0, 0"
                                     >
-                        <TextBlock Text="Number:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.Number, Mode=TwoWay}"/>
-                        <TextBlock Text="Departure from:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.DepartureFrom, Mode=TwoWay}" />
-                        <TextBlock Text="Destination:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.Destringtion, Mode=TwoWay}"/>
-                        <TextBlock Text="Time of departure:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.TimeOfDeparture, Mode=TwoWay}"/>
-                        <TextBlock Text="Arrival time:"/>
-                        <TextBlock FontSize ="25" Text="{Binding ElementName=Flights, Path=SelectedItem.ArrivalTime, Mode=TwoWay}"/>
+                        <TextBlock Text="Id:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Id, Mode=TwoWay}"/>
+                        <TextBlock FontSize="28" Text="Pilot:" Margin="0,10"/>
+                        <TextBlock Text="Id:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Pilot.id, Mode=TwoWay}" />
+                        <TextBlock Text="Suename:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Pilot.Surname, Mode=TwoWay}"/>
+                        <TextBlock Text="Name:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Pilot.Name, Mode=TwoWay}"/>
+                        <TextBlock Text="Experience:"/>
+                        <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Pilot.Experience, Mode=TwoWay}"/>
 
                         <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
-                        <Button Content="Update" Click="ShowUpdateForm_Click"/>
+                        <Button IsEnabled="False" Content="Update"/>
 
-                        <ListView Margin="0,15,0,0" 
+
+                        <TextBlock  Text="Stewardesses:" FontSize ="28"/>
+                        <ListView 
                           SelectedItem="{Binding FlightsService.SelectedItem, Mode=TwoWay}"
-                          x:Name="Tickets"
-                          ItemsSource="{Binding ElementName=Flights, Path=SelectedItem.Tickets, Mode=TwoWay}">
+                          x:Name="Stewardesses"
+                          ItemsSource="{Binding ElementName=Crews, Path=SelectedItem.Stewardesses, Mode=TwoWay}">
                             <ListView.ItemTemplate>
-                                <DataTemplate x:DataType="local:Ticket" >
+                                <DataTemplate x:DataType="local:Stewardess" >
                                     <StackPanel Orientation="Vertical"
                                     Grid.Column="1"
                                     Grid.Row="1"
-                                    Margin="0, 0, 0, 0"
+                                    Margin="0, 15, 0, 0"
                                     >
-                                        <TextBlock  Text="Tickets:" FontSize ="28"/>
-                                        <TextBlock  Text="Price:"/>
-                                        <TextBlock FontSize ="25" Text="{x:Bind Price}"/>
-                                        <TextBlock Text="Flight Number:"/>
-                                        <TextBlock FontSize ="25" Text="{x:Bind FlightNumber}"/>
+                                        <TextBlock  Text="Id:"/>
+                                        <TextBlock FontSize ="25" Text="{x:Bind Id}"/>
+                                        <TextBlock Text="Surname :"/>
+                                        <TextBlock FontSize ="25" Text="{x:Bind Surname}"/>
+                                        <TextBlock  Text="Name:"/>
+                                        <TextBlock FontSize ="25" Text="{x:Bind Name}"/>
+                                        <TextBlock Text="Date Of Birth :"/>
+                                        <TextBlock FontSize ="25" Text="{x:Bind DateOfBirth}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
