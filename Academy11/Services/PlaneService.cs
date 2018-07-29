@@ -11,6 +11,7 @@ namespace Academy11.Services
         public PlaneService()
         {
             _uri += "planes";
+            PlaneTypeService = new PlaneTypeService();
         }
 
         private PlaneTypeService PlaneTypeService { get; set; }

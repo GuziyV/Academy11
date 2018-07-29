@@ -28,6 +28,7 @@ namespace Academy11.Services
             {
                 return false;
             }
+            if(f.Tickets != null)
             foreach (Ticket s in f.Tickets)
             {
                 if (!TicketService.Validate(s))

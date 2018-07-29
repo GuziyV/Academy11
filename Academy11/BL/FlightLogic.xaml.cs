@@ -43,6 +43,7 @@ namespace Academy11
                 };
                 if (FlightService.Validate(f))
                 {
+                    Form.Visibility = Visibility.Collapsed;
                     if (FormTitle.Text == "New Flight")
                     {
                         if (!await FlightService.Add(f))
@@ -128,6 +129,16 @@ namespace Academy11
         private void ShowTickets(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(TicketLogic));
+        }
+
+        private void ShowDepartures(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DepartureLogic));
+        }
+
+        private void ShowCrews(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CrewLogic));
         }
 
     }

@@ -26,6 +26,7 @@ namespace Academy11.Services
             {
                 return false;
             }
+            if (f.Stewardesses == null) return false; 
             foreach(Stewardess s in f.Stewardesses)
             {
                 if(!StewardessService.Validate(s))

@@ -32,6 +32,7 @@ namespace Academy11
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            Form.Visibility = Visibility.Collapsed;
             bool isNumber = int.TryParse(formNumberOfSeats.Text, out int numberOfSeats);
             bool isNumber2 = int.TryParse(formLoadCapacity.Text, out int loadCapacity);
             if (isNumber && isNumber2)
@@ -44,6 +45,7 @@ namespace Academy11
                 };
                 if (PlaneTypeService.Validate(f))
                 {
+                    Form.Visibility = Visibility.Collapsed;
                     if (FormTitle.Text == "New PlaneType")
                     {
                         if (!await PlaneTypeService.Add(f))
@@ -104,9 +106,9 @@ namespace Academy11
         {
             Frame.Navigate(typeof(FlightLogic));
         }
-        private void ShowPlaneTypes(object sender, RoutedEventArgs e)
+        private void ShowPilots(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PlaneTypeLogic));
+            Frame.Navigate(typeof(PilotLogic));
         }
 
         private void ShowPlanes(object sender, RoutedEventArgs e)
@@ -114,9 +116,9 @@ namespace Academy11
             Frame.Navigate(typeof(PlaneLogic));
         }
 
-        private void ShowPilots(object sender, RoutedEventArgs e)
+        private void ShowPlaneTypes(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PilotLogic));
+            Frame.Navigate(typeof(PlaneTypeLogic));
         }
 
         private void ShowStewardesses(object sender, RoutedEventArgs e)
@@ -127,6 +129,16 @@ namespace Academy11
         private void ShowTickets(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(TicketLogic));
+        }
+
+        private void ShowDepartures(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DepartureLogic));
+        }
+
+        private void ShowCrews(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CrewLogic));
         }
 
 

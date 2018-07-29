@@ -32,6 +32,7 @@ namespace Academy11
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            Form.Visibility = Visibility.Collapsed;
             bool isNumber = int.TryParse(formCrewId.Text, out int crewId);
             if (isNumber && formDateOfBirth.Date.HasValue)
             {
@@ -44,6 +45,7 @@ namespace Academy11
                 };
                 if (StewardessService.Validate(f))
                 {
+                    Form.Visibility = Visibility.Collapsed;
                     if (FormTitle.Text == "New Stewardess")
                     {
                         if (!await StewardessService.Add(f))
@@ -129,6 +131,16 @@ namespace Academy11
         private void ShowTickets(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(TicketLogic));
+        }
+
+        private void ShowDepartures(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DepartureLogic));
+        }
+
+        private void ShowCrews(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CrewLogic));
         }
 
     }

@@ -41,5 +41,15 @@ namespace Academy11
             Frame.Navigate(typeof(TicketLogic));
         }
 
+        private void ShowDepartures(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DepartureLogic));
+        }
+
+        private void ShowCrews(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CrewLogic));
+        }
+
     }
 }

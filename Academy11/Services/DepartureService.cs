@@ -15,7 +15,7 @@ namespace Academy11.Services
             CrewService = new CrewService();
             FlightService = new FlightService();
 
-            _uri += "flights";
+            _uri += "departures";
         }
         public PlaneService PlaneService { get; set; }
         public CrewService CrewService { get; set; }
@@ -25,9 +25,9 @@ namespace Academy11.Services
         {
             if (PlaneService.Validate(f.Plane) && CrewService.Validate(f.Crew) && FlightService.Validate(f.Flight))
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
 
         protected override int GetSelectedId()

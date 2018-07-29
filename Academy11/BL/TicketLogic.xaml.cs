@@ -32,6 +32,7 @@ namespace Academy11
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            Form.Visibility = Visibility.Collapsed;
             bool isNumber = int.TryParse(formPrice.Text, out int price);
             bool isNumber2 = int.TryParse(formFlightNumber.Text, out int flightNumber);
             if (isNumber && isNumber2)
@@ -43,6 +44,7 @@ namespace Academy11
                 };
                 if (TicketService.Validate(f))
                 {
+                    Form.Visibility = Visibility.Collapsed;
                     if (FormTitle.Text == "New Ticket")
                     {
                         if (!await TicketService.Add(f))
@@ -99,7 +101,7 @@ namespace Academy11
 
         private void ShowFlights(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(FlightService));
+            Frame.Navigate(typeof(FlightLogic));
         }
         private void ShowPilots(object sender, RoutedEventArgs e)
         {
@@ -126,5 +128,14 @@ namespace Academy11
             Frame.Navigate(typeof(TicketLogic));
         }
 
+        private void ShowDepartures(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DepartureLogic));
+        }
+
+        private void ShowCrews(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CrewLogic));
+        }
     }
 }

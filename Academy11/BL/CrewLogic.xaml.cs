@@ -31,6 +31,7 @@ namespace Academy11
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            
             bool isNumber = int.TryParse(formCrewId.Text, out int crewId);
             bool isNumber2 = int.TryParse(formExperience.Text, out int experience);
             if (isNumber && isNumber2 && formDateOfBirth.Date.HasValue)
@@ -58,9 +59,19 @@ namespace Academy11
                 };
                 if (CrewService.Validate(f))
                 {
+                    Form.Visibility = Visibility.Collapsed;
                     if (FormTitle.Text == "New Crew")
                     {
                         if (!await CrewService.Add(f))
+                        {
+                            WrongInput.Visibility = Visibility.Visible;
+                        }
+                        WrongInput.Visibility = Visibility.Collapsed;
+                        return;
+                    }
+                    if (FormTitle.Text == "Edit Crew")
+                    {
+                        if (!await CrewService.Update(f))
                         {
                             WrongInput.Visibility = Visibility.Visible;
                         }
@@ -71,6 +82,21 @@ namespace Academy11
                 WrongInput.Visibility = Visibility.Visible;
             }
         }
+
+        public void ShowUpdateForm_Click(object sender, RoutedEventArgs e)
+        {
+            WrongInput.Visibility = Visibility.Collapsed;
+            Form.Visibility = Visibility.Visible;
+            FormTitle.Text = "Edit Crew";
+            formPilotSurname.Text = CrewService.SelectedItem.Pilot.Surname;
+            formPilotName.Text = CrewService.SelectedItem.Pilot.Name;
+            formExperience.Text = CrewService.SelectedItem.Pilot.Experience.ToString() ;
+            formDateOfBirth.Date = CrewService.SelectedItem.Stewardesses[0].DateOfBirth;
+            formStewardessName.Text = CrewService.SelectedItem.Stewardesses[0].Name;
+            formStewardessSurname.Text = CrewService.SelectedItem.Stewardesses[0].Surname;
+            formCrewId.Text = CrewService.SelectedItem.Stewardesses[0].CrewId.ToString();
+        }
+
 
         public void ShowForm_Click(object sender, RoutedEventArgs e)
         {
@@ -83,6 +109,7 @@ namespace Academy11
             formDateOfBirth.Date = null;
             formStewardessName.Text = "";
             formStewardessSurname.Text = "";
+            formCrewId.Text = "";
         }
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)
@@ -102,9 +129,9 @@ namespace Academy11
         {
             Frame.Navigate(typeof(FlightLogic));
         }
-        private void ShowPlaneTypes(object sender, RoutedEventArgs e)
+        private void ShowPilots(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PlaneTypeLogic));
+            Frame.Navigate(typeof(PilotLogic));
         }
 
         private void ShowPlanes(object sender, RoutedEventArgs e)
@@ -112,9 +139,9 @@ namespace Academy11
             Frame.Navigate(typeof(PlaneLogic));
         }
 
-        private void ShowPilots(object sender, RoutedEventArgs e)
+        private void ShowPlaneTypes(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PilotLogic));
+            Frame.Navigate(typeof(PlaneTypeLogic));
         }
 
         private void ShowStewardesses(object sender, RoutedEventArgs e)
@@ -125,6 +152,16 @@ namespace Academy11
         private void ShowTickets(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(TicketLogic));
+        }
+
+        private void ShowDepartures(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(DepartureLogic));
+        }
+
+        private void ShowCrews(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CrewLogic));
         }
 
     }

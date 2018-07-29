@@ -32,8 +32,8 @@
             <Button Content="Tickets" Click="ShowTickets" Grid.Column="3" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button Content="PlaneTypes" Click="ShowPlaneTypes" Grid.Column="4" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button Content="Planes" Click="ShowPlanes" Grid.Column="5" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Crews" Grid.Column="6" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Departments" Background="Gray" Grid.Column="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="Crews" Click="ShowCrews" Grid.Column="6" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="Departures" Click="ShowDepartures" Background="Gray" Grid.Column="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
 
         <Grid Grid.Row="1" >

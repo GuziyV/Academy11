@@ -5,10 +5,11 @@
     xmlns:local="using:Academy11"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="White">
+    <ScrollViewer>
+        <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition />
@@ -32,8 +33,8 @@
             <Button Content="Tickets" Click="ShowTickets" Grid.Column="3" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button Content="PlaneTypes" Click="ShowPlaneTypes" Grid.Column="4" Background="Gray"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button Content="Planes" Click="ShowPlanes" Grid.Column="5" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Crews" Grid.Column="6" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button Content="Departments" Background="Gray" Grid.Column="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="Crews" Click="ShowCrews" Grid.Column="6" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="Departures" Click="ShowDepartures" Background="Gray" Grid.Column="7" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
 
         <Grid Grid.Row="1" >
@@ -66,7 +67,7 @@
                 </ListView>
             </Grid>
 
-            <StackPanel Grid.Column="1" Visibility="Collapsed" x:Name="Form"  HorizontalAlignment="Center">
+            <StackPanel  Grid.Column="1" Visibility="Collapsed" x:Name="Form"  HorizontalAlignment="Center">
                 <TextBlock Text="New Crew" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
                 <TextBox  x:Name="formPilotSurname" Header= "Pilot Surname" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
                 <TextBox x:Name="formPilotName" Header="Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
@@ -88,18 +89,18 @@
                                     >
                         <TextBlock Text="Id:"/>
                         <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Id, Mode=TwoWay}"/>
-                        <TextBlock FontSize="28" Text="Pilot:" Margin="0,10"/>
-                        <TextBlock Text="Id:"/>
+                        <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
+                        <Button Content="Update" Click="ShowUpdateForm_Click"/>
+                        <TextBlock FontSize="28" Text="Pilot:" />
                         <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Pilot.id, Mode=TwoWay}" />
-                        <TextBlock Text="Suename:"/>
+                        <TextBlock Text="Surname:"/>
                         <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Pilot.Surname, Mode=TwoWay}"/>
                         <TextBlock Text="Name:"/>
                         <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Pilot.Name, Mode=TwoWay}"/>
                         <TextBlock Text="Experience:"/>
                         <TextBlock FontSize ="25" Text="{Binding ElementName=Crews, Path=SelectedItem.Pilot.Experience, Mode=TwoWay}"/>
 
-                        <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
-                        <Button IsEnabled="False" Content="Update"/>
+                        
 
 
                         <TextBlock  Text="Stewardesses:" FontSize ="28"/>
@@ -138,4 +139,5 @@
         </Grid>
 
     </Grid>
+    </ScrollViewer>
 </Page>
