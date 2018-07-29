@@ -5,7 +5,7 @@
     xmlns:local="using:Academy11"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Background="White">
@@ -46,7 +46,7 @@
                 <StackPanel>
                     <Button Content="Create new" Click="ShowForm_Click" Margin="10,10,10,10"/>
                 </StackPanel>
-                <ListView SelectionChanged="ShowSelectedItem_Click" Margin="0,50,0,0" x:Name="Flights" ItemsSource="{x:Bind FlightService.Flights}">
+                <ListView SelectionChanged="ShowSelectedItem_Click" Margin="0,50,0,0" x:Name="Flights" ItemsSource="{x:Bind FlightService.Flights, Mode=TwoWay}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local:Flight" >
 
@@ -67,12 +67,13 @@
                 </ListView>
             </Grid>
 
-            <StackPanel Grid.Column="1" Visibility="Collapsed" x:Name="Form">
-                <TextBlock Text="New Flight" Style="{StaticResource TitleTextBlockStyle}"/>
-                <TextBox x:Name="formDepartureFrom" Header= "Departure From" Margin="0,24,0,0" MaxLength="25" Width="Auto" HorizontalAlignment="Left"/>
-                <TextBox x:Name="formDestination" Header="Destination" Margin="0,24,0,0" MaxLength="25" Width="Auto" HorizontalAlignment="Left" />
-                <TextBox x:Name="formArrivalTime" Header="Arrival Time" Margin="0,24,0,0" MaxLength="25" Width="Auto" HorizontalAlignment="Left" />
-                <TextBox x:Name="formTimeOfDeparture" Header="Time of departure"  Margin="0,24,0,0" MaxLength="25" Width="Auto" HorizontalAlignment="Left" />
+            <StackPanel Grid.Column="1" Visibility="Collapsed" x:Name="Form"  HorizontalAlignment="Center">
+                <TextBlock Text="New Flight" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
+                <TextBox  x:Name="formDepartureFrom" Header= "Departure From" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
+                <TextBox x:Name="formDestination" Header="Destination" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <CalendarDatePicker  x:Name="formArrivalTime" Header="Arrival Time" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <CalendarDatePicker x:Name="formTimeOfDeparture" Header="Time of departure"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Save" Margin="0,24" Click="SaveButton_Click"/>
                 </StackPanel>
@@ -94,7 +95,7 @@
                     <TextBlock Text="Arrival time:"/>
                     <TextBlock FontSize ="25" Name="ArrivalTime"/>
                     <Button Content="Delete" Click="Delete_Click" Margin="0,20,0,20"/>
-                    <Button Content="Update"/>
+                    <Button Content="Update" Click="ShowUpdateForm_Click"/>
 
                 </StackPanel>
 

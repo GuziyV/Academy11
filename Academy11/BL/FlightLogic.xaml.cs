@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Linq;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 
 namespace Academy11
 {
@@ -14,10 +15,14 @@ namespace Academy11
             FlightService = new FlightService();
             this.InitializeComponent();
         }
-        private Flight SelectedFlight;
 
 
         public FlightService FlightService { get; set; }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await FlightService.UpdateList();
+        }
 
         private void ShowFlights_Click(object sender, RoutedEventArgs e)
         {
@@ -26,6 +31,7 @@ namespace Academy11
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)
         {
+            Form.Visibility = Visibility.Collapsed;
             FlightService.SelectedItem = ((Flight)Flights.SelectedItem);
             if(FlightService.SelectedItem == null)
             {
@@ -40,19 +46,68 @@ namespace Academy11
             Detail.Visibility = Visibility.Visible;
         }
 
-        public void Delete_Click(object sender, RoutedEventArgs e)
+        public async void Delete_Click(object sender, RoutedEventArgs e)
         {
-            FlightService.RemoveElem(FlightService.SelectedItem);
+            Form.Visibility = Visibility.Collapsed;
+            await FlightService.RemoveElem(FlightService.SelectedItem);
         }
 
-        public void SaveButton_Click(object sender, RoutedEventArgs e)
+        public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (formArrivalTime.Date.HasValue && formTimeOfDeparture.Date.HasValue)
+            {
+                Flight f = new Flight()
+                {
+                    Destination = formDestination.Text,
+                    DepartureFrom = formDepartureFrom.Text,
+                    ArrivalTime = formArrivalTime.Date.Value.Date,
+                    TimeOfDeparture = formTimeOfDeparture.Date.Value.Date
+                };
+                if (FlightService.Validate(f))
+                {
+                    if (FormTitle.Text == "New Flight")
+                    {
+                        if (!await FlightService.Add(f))
+                        {
+                            WrongInput.Visibility = Visibility.Visible;
+                        }
+                        WrongInput.Visibility = Visibility.Collapsed;
+                        return;
+                    }
+                    if (FormTitle.Text == "Edit Flight")
+                    {
+                        if (!await FlightService.Update(f))
+                        {
+                            WrongInput.Visibility = Visibility.Visible;
+                        }
+                        WrongInput.Visibility = Visibility.Collapsed;
+                        return;
+                    }
+                }
+            }
+                WrongInput.Visibility = Visibility.Visible;
+        }
 
+        public void ShowUpdateForm_Click(object sender, RoutedEventArgs e)
+        {
+            WrongInput.Visibility = Visibility.Collapsed;
+            Form.Visibility = Visibility.Visible;
+            FormTitle.Text = "Edit Flight";
+            formArrivalTime.Date = FlightService.SelectedItem.ArrivalTime;
+            formDepartureFrom.Text = FlightService.SelectedItem.DepartureFrom.ToString();
+            formDestination.Text = FlightService.SelectedItem.Destination.ToString();
+            formTimeOfDeparture.Date = FlightService.SelectedItem.TimeOfDeparture;
         }
 
         public void ShowForm_Click(object sender, RoutedEventArgs e)
         {
+            WrongInput.Visibility = Visibility.Collapsed;
             Form.Visibility = Visibility.Visible;
+            FormTitle.Text = "New Flight";
+            formArrivalTime.Date = null;
+            formDepartureFrom.Text = "";
+            formDestination.Text = "";
+            formTimeOfDeparture.Date = null;
         }
 
     }
