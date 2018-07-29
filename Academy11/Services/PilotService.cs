@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace Academy11.Services
 {
-    class PilotService
+    public class PilotService : ItemService<Pilot>
     {
+        public PilotService()
+        {
+            _uri += "pilots";
+        }
+
+        public override bool Validate(Pilot f)
+        {
+            if (f.Name == "" || f.Surname =="")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        protected override int GetSelectedId()
+        {
+            return SelectedItem.Id;
+        }
     }
 }

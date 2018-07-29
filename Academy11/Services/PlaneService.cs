@@ -6,7 +6,25 @@ using System.Threading.Tasks;
 
 namespace Academy11.Services
 {
-    class PlaneService
+    public class PlaneService : ItemService<Plane>
     {
+        public PlaneService()
+        {
+            _uri += "planes";
+        }
+
+        public override bool Validate(Plane f)
+        {
+            if (f.PlaneType == null )
+            {
+                return false;
+            }
+            return true;
+        }
+
+        protected override int GetSelectedId()
+        {
+            return SelectedItem.Id;
+        }
     }
 }

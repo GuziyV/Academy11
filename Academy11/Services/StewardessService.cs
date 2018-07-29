@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace Academy11.Services
 {
-    class StewardessService
+    public class StewardessService : ItemService<Stewardess>
     {
+        public StewardessService()
+        {
+            _uri += "stewardesses";
+        }
+        public override bool Validate(Stewardess Item)
+        {
+            if(Item.Name == "" || Item.Surname == "")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        protected override int GetSelectedId()
+        {
+            return SelectedItem.Id;
+        }
     }
 }

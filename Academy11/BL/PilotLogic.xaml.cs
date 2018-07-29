@@ -4,6 +4,7 @@ using Windows.UI.Xaml.Controls;
 using System.Linq;
 using System.ServiceModel.Channels;
 using System.Threading.Tasks;
+using System;
 
 namespace Academy11
 {
@@ -12,49 +13,49 @@ namespace Academy11
     {
         public PilotLogic()
         {
-            FlightService = new FlightService();
+            PilotService = new PilotService();
             this.InitializeComponent();
         }
 
 
-        public FlightService FlightService { get; set; }
+        public PilotService PilotService { get; set; }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await FlightService.UpdateList();
+            await PilotService.UpdateList();
         }
 
         public async void Delete_Click(object sender, RoutedEventArgs e)
         {
             Form.Visibility = Visibility.Collapsed;
-            await FlightService.RemoveElem(FlightService.SelectedItem);
+            await PilotService.RemoveElem(PilotService.SelectedItem);
         }
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (formArrivalTime.Date.HasValue && formTimeOfDeparture.Date.HasValue)
+            bool isNumber = int.TryParse(formExperience.Text, out int n);
+            if (isNumber)
             {
-                Flight f = new Flight()
+                Pilot f = new Pilot()
                 {
-                    Destination = formDestination.Text,
-                    DepartureFrom = formDepartureFrom.Text,
-                    ArrivalTime = formArrivalTime.Date.Value.Date,
-                    TimeOfDeparture = formTimeOfDeparture.Date.Value.Date
+                    Name = formName.Text,
+                    Surname = formSurname.Text,
+                    Experience = Int32.Parse(formExperience.Text)
                 };
-                if (FlightService.Validate(f))
+                if (PilotService.Validate(f))
                 {
-                    if (FormTitle.Text == "New Flight")
+                    if (FormTitle.Text == "New Pilot")
                     {
-                        if (!await FlightService.Add(f))
+                        if (!await PilotService.Add(f))
                         {
                             WrongInput.Visibility = Visibility.Visible;
                         }
                         WrongInput.Visibility = Visibility.Collapsed;
                         return;
                     }
-                    if (FormTitle.Text == "Edit Flight")
+                    if (FormTitle.Text == "Edit Pilot")
                     {
-                        if (!await FlightService.Update(f))
+                        if (!await PilotService.Update(f))
                         {
                             WrongInput.Visibility = Visibility.Visible;
                         }
@@ -70,38 +71,30 @@ namespace Academy11
         {
             WrongInput.Visibility = Visibility.Collapsed;
             Form.Visibility = Visibility.Visible;
-            FormTitle.Text = "Edit Flight";
-            formArrivalTime.Date = FlightService.SelectedItem.ArrivalTime;
-            formDepartureFrom.Text = FlightService.SelectedItem.DepartureFrom.ToString();
-            formDestination.Text = FlightService.SelectedItem.Destination.ToString();
-            formTimeOfDeparture.Date = FlightService.SelectedItem.TimeOfDeparture;
+            FormTitle.Text = "Edit Pilot";
+            formName.Text = PilotService.SelectedItem.Name;
+            formSurname.Text = PilotService.SelectedItem.Surname.ToString();
+            formExperience.Text = PilotService.SelectedItem.Experience.ToString();
         }
 
         public void ShowForm_Click(object sender, RoutedEventArgs e)
         {
             WrongInput.Visibility = Visibility.Collapsed;
             Form.Visibility = Visibility.Visible;
-            FormTitle.Text = "New Flight";
-            formArrivalTime.Date = null;
-            formDepartureFrom.Text = "";
-            formDestination.Text = "";
-            formTimeOfDeparture.Date = null;
+            FormTitle.Text = "New Pilot";
+            formSurname.Text = "";
+            formName.Text = "";
         }
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)
         {
             Form.Visibility = Visibility.Collapsed;
-            FlightService.SelectedItem = ((Flight)Flights.SelectedItem);
-            if (FlightService.SelectedItem == null)
+            PilotService.SelectedItem = ((Pilot)Pilots.SelectedItem);
+            if (PilotService.SelectedItem == null)
             {
                 Detail.Visibility = Visibility.Collapsed;
                 return;
             }
-            Number.Text = FlightService.SelectedItem.Number.ToString();
-            ArrivalTime.Text = FlightService.SelectedItem.ArrivalTime.ToString();
-            DepartureFrom.Text = FlightService.SelectedItem.DepartureFrom.ToString();
-            Destination.Text = FlightService.SelectedItem.Destination.ToString();
-            TimeOfDeparture.Text = FlightService.SelectedItem.TimeOfDeparture.ToString();
             Detail.Visibility = Visibility.Visible;
         }
 
