@@ -17,25 +17,16 @@ namespace Academy11.Services
         public FlightService()
         {
             _uri += "flights";
-            TicketService = new TicketService();
         }
 
-        public TicketService TicketService { get; set; }
 
-        public override bool Validate(Flight f)
+        public static bool Validate(Flight f)
         {
             if (f.DepartureFrom == "" || f.Destination == "")
             {
                 return false;
             }
-            if(f.Tickets != null)
-            foreach (Ticket s in f.Tickets)
-            {
-                if (!TicketService.Validate(s))
-                {
-                    return false;
-                }
-            }
+
             return true;
         }
 

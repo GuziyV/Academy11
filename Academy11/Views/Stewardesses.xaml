@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <ScrollViewer>
         <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
@@ -69,7 +68,7 @@
                     <TextBlock Text="New Stewardess" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
                     <TextBox  x:Name="formSurname" Header= "Surname" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
                     <TextBox x:Name="formName" Header="Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
-                    <TextBox InputScope="Number"  x:Name="formCrewId" Header="Crew Id" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                    <ComboBox Name="formCrewId" Header="Crew Id:" ItemsSource="{x:Bind StewardessService.CrewIds}" Width="30" Margin="0,24" HorizontalAlignment="Left"></ComboBox>
                     <CalendarDatePicker x:Name="formDateOfBirth" Header="Date of birth"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
                     <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
                     <StackPanel Orientation="Horizontal">
@@ -104,5 +103,4 @@
             </Grid>
 
         </Grid>
-    </ScrollViewer>
 </Page>

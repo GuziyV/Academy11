@@ -11,17 +11,12 @@ namespace Academy11.Services
 
         public DepartureService()
         {
-            PlaneService = new PlaneService();
-            CrewService = new CrewService();
-            FlightService = new FlightService();
+
 
             _uri += "departures";
         }
-        public PlaneService PlaneService { get; set; }
-        public CrewService CrewService { get; set; }
-        public FlightService FlightService { get; set; }
 
-        public override bool Validate(Departure f)
+        public static bool Validate(Departure f)
         {
             if (PlaneService.Validate(f.Plane) && CrewService.Validate(f.Crew) && FlightService.Validate(f.Flight))
             {

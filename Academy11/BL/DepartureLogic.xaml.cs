@@ -31,11 +31,10 @@ namespace Academy11
 
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            bool isNumber = int.TryParse(formCrewId.Text, out int crewId);
             bool isNumber2 = int.TryParse(formExperience.Text, out int experience);
             bool isNumber3 = int.TryParse(formNumberOfSeats.Text, out int numberOfSeats);
             bool isNumber4 = int.TryParse(formLoadCapacity.Text, out int loadCapacity);
-            if (formReleaseDate.Date.HasValue && isNumber && isNumber2 && isNumber3 && isNumber4
+            if (formReleaseDate.Date.HasValue && isNumber2 && isNumber3 && isNumber4
                 && formArrivalTime.Date.HasValue && formTimeOfDeparture.Date.HasValue && formDateOfBirth.Date.HasValue
                 && formTimeOfDeparture2.Date.HasValue)
             {
@@ -43,7 +42,7 @@ namespace Academy11
                 {
                     Name = formStewardessName.Text,
                     Surname = formStewardessSurname.Text,
-                    CrewId = crewId,
+                    CrewId = 1,
                     DateOfBirth = formDateOfBirth.Date.Value.Date
                 };
 

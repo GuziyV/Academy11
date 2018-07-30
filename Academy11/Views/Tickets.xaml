@@ -70,7 +70,7 @@
 
                 <StackPanel Grid.Column="1" Visibility="Collapsed" x:Name="Form"  HorizontalAlignment="Center">
                     <TextBlock Text="New Ticket" x:Name="FormTitle" Style="{StaticResource TitleTextBlockStyle}"/>
-                    <TextBox InputScope="Number"  x:Name="formFlightNumber" Header= "FlightNumber" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
+                    <ComboBox Name="formFlightNumber" Header="Flight number:" ItemsSource="{x:Bind TicketService.FlightsIds}" Width="30" Margin="0,24" HorizontalAlignment="Left"></ComboBox>
                     <TextBox InputScope="Number"  x:Name="formPrice" Header="Price" Margin="0,24,0,0"  HorizontalAlignment="Left" />
                     <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
                     <StackPanel Orientation="Horizontal">

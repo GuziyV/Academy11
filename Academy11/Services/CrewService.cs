@@ -11,16 +11,11 @@ namespace Academy11.Services
 
         public CrewService()
         {
-            PilotService = new PilotService();
-            StewardessService = new StewardessService();
             _uri += "crews";
         }
 
 
-        public PilotService PilotService { get; set; }
-        public StewardessService StewardessService { get; set; }
-
-        public override bool Validate(Crew f)
+        public static bool Validate(Crew f)
         {
             if (f.Pilot == null || f.Stewardesses == null || !PilotService.Validate(f.Pilot))
             {

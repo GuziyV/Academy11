@@ -13,7 +13,7 @@ namespace Academy11.Services
         {
             _uri += "planetypes";
         }
-        public override bool Validate(PlaneType Item)
+        public static bool Validate(PlaneType Item)
         {
             if(Item.Model == null)
             {

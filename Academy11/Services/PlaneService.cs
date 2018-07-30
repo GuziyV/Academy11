@@ -16,7 +16,7 @@ namespace Academy11.Services
 
         private PlaneTypeService PlaneTypeService { get; set; }
 
-        public override bool Validate(Plane f)
+        public static bool Validate(Plane f)
         {
             if (f.PlaneType == null || !PlaneTypeService.Validate(f.PlaneType) )
             {

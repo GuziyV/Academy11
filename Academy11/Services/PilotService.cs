@@ -13,7 +13,7 @@ namespace Academy11.Services
             _uri += "pilots";
         }
 
-        public override bool Validate(Pilot f)
+        public static bool Validate(Pilot f)
         {
             if (f.Name == "" || f.Surname =="")
             {

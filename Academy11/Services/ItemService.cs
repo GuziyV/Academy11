@@ -88,7 +88,7 @@ namespace Academy11.Services
             }
         }
 
-        abstract public bool Validate(T Item);
+       // abstract public static bool Validate(T Item);
 
         virtual public async Task UpdateList()
         {

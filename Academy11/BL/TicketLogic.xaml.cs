@@ -4,6 +4,7 @@ using Windows.UI.Xaml.Controls;
 using System.Linq;
 using System.ServiceModel.Channels;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace Academy11
 {
@@ -13,9 +14,9 @@ namespace Academy11
         public TicketLogic()
         {
             TicketService = new TicketService();
+
             this.InitializeComponent();
         }
-
 
         public TicketService TicketService { get; set; }
 
@@ -33,7 +34,7 @@ namespace Academy11
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool isNumber = int.TryParse(formPrice.Text, out int price);
-            bool isNumber2 = int.TryParse(formFlightNumber.Text, out int flightNumber);
+            bool isNumber2 = int.TryParse(formFlightNumber.SelectedValue.ToString(), out int flightNumber);
             if (isNumber && isNumber2)
             {
                 Ticket f = new Ticket()
@@ -73,7 +74,7 @@ namespace Academy11
             Form.Visibility = Visibility.Visible;
             FormTitle.Text = "Edit Ticket";
             formPrice.Text = TicketService.SelectedItem.Price.ToString();
-            formFlightNumber.Text = TicketService.SelectedItem.FlightNumber.ToString();
+            formFlightNumber.SelectedValue = (TicketService.SelectedItem.FlightNumber.ToString());
         }
 
         public void ShowForm_Click(object sender, RoutedEventArgs e)
@@ -82,7 +83,7 @@ namespace Academy11
             Form.Visibility = Visibility.Visible;
             FormTitle.Text = "New Ticket";
             formPrice.Text = "";
-            formFlightNumber.Text = "";
+            formFlightNumber.SelectedValue = "";
         }
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)

@@ -32,15 +32,14 @@ namespace Academy11
         public async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             
-            bool isNumber = int.TryParse(formCrewId.Text, out int crewId);
             bool isNumber2 = int.TryParse(formExperience.Text, out int experience);
-            if (isNumber && isNumber2 && formDateOfBirth.Date.HasValue)
+            if ( isNumber2 && formDateOfBirth.Date.HasValue)
             {
                 Stewardess s = new Stewardess()
                 {
                     Name = formStewardessName.Text,
                     Surname = formStewardessSurname.Text,
-                    CrewId = crewId,
+                    CrewId = 1,
                     DateOfBirth = formDateOfBirth.Date.Value.Date
                 };
                 Pilot p = new Pilot()
@@ -94,7 +93,6 @@ namespace Academy11
             formDateOfBirth.Date = CrewService.SelectedItem.Stewardesses[0].DateOfBirth;
             formStewardessName.Text = CrewService.SelectedItem.Stewardesses[0].Name;
             formStewardessSurname.Text = CrewService.SelectedItem.Stewardesses[0].Surname;
-            formCrewId.Text = CrewService.SelectedItem.Stewardesses[0].CrewId.ToString();
         }
 
 
@@ -109,7 +107,6 @@ namespace Academy11
             formDateOfBirth.Date = null;
             formStewardessName.Text = "";
             formStewardessSurname.Text = "";
-            formCrewId.Text = "";
         }
 
         public void ShowSelectedItem_Click(object sender, RoutedEventArgs e)

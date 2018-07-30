@@ -73,9 +73,8 @@
                 <TextBox x:Name="formPilotName" Header="Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
                 <TextBox InputScope="Number"  x:Name="formExperience" Header="Experience" Margin="0,24,0,0"  HorizontalAlignment="Left" />
                 <TextBox  x:Name="formStewardessSurname" Header= "Stuardess Surname" Margin="0,24,0,0" MaxLength="25"  HorizontalAlignment="Left"/>
-                <TextBox x:Name="formStewardessName" Header="Stuardess Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
-                <TextBox InputScope="Number"  x:Name="formCrewId" Header="Crew Id" Margin="0,24,0,0"  HorizontalAlignment="Left" />
-                <CalendarDatePicker x:Name="formDateOfBirth" Header="Date of birth"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                    <TextBox x:Name="formStewardessName" Header="Stuardess Name" Margin="0,24,0,0"  HorizontalAlignment="Left" />
+                    <CalendarDatePicker x:Name="formDateOfBirth" Header="Date of birth"  Margin="0,24,0,0"  HorizontalAlignment="Left" />
                 <TextBlock Text="Wrong input" Foreground="Red" x:Name="WrongInput" Visibility="Collapsed" Style="{StaticResource TitleTextBlockStyle}"/>
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Save" Margin="0,24" Click="SaveButton_Click"/>
